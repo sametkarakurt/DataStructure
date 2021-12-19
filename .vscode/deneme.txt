@@ -1,0 +1,29 @@
+void DoublyLinkedList::remove(int index){
+
+    if(head->next == NULL){
+        delete head;
+        size--;
+        head = NULL;
+    }
+     //Liste boş değilse
+    if(size != 0){
+        if(index >= size || index<0){
+            Node *prv = FindPreviousByPosition(size);
+            delete prv;
+            prv->prev->next = 0;
+        }else{
+            //sona düğüm eklendi ve bir öncekinin datası ona aktarıldı.         
+            Node* prv2 =FindPreviousByPosition(index);
+            for(int i=0;i<(size-index);i++){
+                prv2->data = prv2->next->data;
+                prv2 = prv2->next;                    
+            }
+            Node* deletedItem = FindPreviousByPosition(size);
+            
+            delete deletedItem;
+            deletedItem->prev->next = 0;  
+        }
+   
+    }
+
+};
