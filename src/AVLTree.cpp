@@ -37,7 +37,7 @@ void AVLTree::postOrder(AVLNode* currentNode)
     {
         postOrder(currentNode->left);
         postOrder(currentNode->right);
-        cout<<currentNode->queueLength<<endl;
+        cout<<currentNode->queueLength<<" ";
     }	
 }
 
@@ -70,7 +70,7 @@ AVLNode* AVLTree::insert(int queueLength,AVLNode* currentNode)
             }
         }
     }
-    else if(currentNode->queueLength>queueLength)
+    else if(currentNode->queueLength>=queueLength)
     {
         currentNode->left = insert(queueLength,currentNode->left);
         if(height(currentNode->left)-height(currentNode->right)>1)
