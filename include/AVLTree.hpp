@@ -18,14 +18,14 @@ class AVLTree
 public:
     AVLTree();
     ~AVLTree();
-    void insert(DogruKuyrugu* data);
+    void insert(int queueLength);
     void postOrder();
     AVLNode *root;
     int size;
 
 private:
 
-    AVLNode* insert(DogruKuyrugu* veri,AVLNode* aktifDugum);
+    AVLNode* insert(int queueLength,AVLNode* aktifDugum);
 	AVLNode* swapLeft(AVLNode* dugum);
 	AVLNode* swapRight(AVLNode* dugum);
     int height(AVLNode* currentNode);

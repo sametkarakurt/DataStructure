@@ -20,9 +20,9 @@ AVLTree::~AVLTree()
 
 }
 
-void AVLTree::insert(DogruKuyrugu* data)
+void AVLTree::insert(int queueLength)
 {
-    root = insert(data,root);
+    root = insert(queueLength,root);
 }
 
 
@@ -37,7 +37,7 @@ void AVLTree::postOrder(AVLNode* currentNode)
     {
         postOrder(currentNode->left);
         postOrder(currentNode->right);
-        currentNode->data->printNodes();
+        cout<<currentNode->queueLength<<endl;
     }	
 }
 
@@ -50,22 +50,17 @@ int AVLTree::height(AVLNode* currentNode)
     }
     return -1;
 }
-AVLNode* AVLTree::insert(DogruKuyrugu* veri,AVLNode* currentNode) 
+AVLNode* AVLTree::insert(int queueLength,AVLNode* currentNode) 
 {
+    if(currentNode==0)
+        return new AVLNode(queueLength);
 
-    if(currentNode==0){
-
-        return new AVLNode(veri);
-    }
-
-	else if(currentNode->data->length < veri->length)
+	else if(currentNode->queueLength<queueLength)
     {
-    
-        currentNode->right=insert(veri,currentNode->right);
+        currentNode->right=insert(queueLength,currentNode->right);
         if(height(currentNode->right)-height(currentNode->left)>1)
         {   
-            
-            if(veri->length>currentNode->right->data->length)
+            if(queueLength>currentNode->right->queueLength)
                 currentNode = swapLeft(currentNode);
                 
             else
@@ -75,13 +70,13 @@ AVLNode* AVLTree::insert(DogruKuyrugu* veri,AVLNode* currentNode)
             }
         }
     }
-    else if(currentNode->data->length>veri->length)
+    else if(currentNode->queueLength>queueLength)
     {
-        currentNode->left = insert(veri,currentNode->left);
+        currentNode->left = insert(queueLength,currentNode->left);
         if(height(currentNode->left)-height(currentNode->right)>1)
         {
 
-            if(veri->length<currentNode->left->data->length)
+            if(queueLength<currentNode->left->queueLength)
                 currentNode = swapRight(currentNode);
             else
             {
@@ -91,8 +86,9 @@ AVLNode* AVLTree::insert(DogruKuyrugu* veri,AVLNode* currentNode)
         }
 
     }
- 
     return currentNode;
+
+  
 }
 AVLNode* AVLTree::swapLeft(AVLNode*parent) 
 {

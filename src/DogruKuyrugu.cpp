@@ -60,14 +60,12 @@ void DogruKuyrugu::insert(int x,int y,int z){
     if(first == NULL){
         first = new Node(Nokta(x,y,z));
         last = first;
-        length+=first->data.distance;
     }
     else{
         Node *newNode = new Node(Nokta(x,y,z));
         last->next = newNode;
         last = newNode;
-        length+=last->data.distance;
-        
+       
     }
  
     numberOfPoint++;
@@ -111,7 +109,6 @@ void DogruKuyrugu::removeLowestNode(){
         
         Node * remove = prevNode->next;
         prevNode->next = remove->next;
-        length -= remove->data.distance;
         delete remove;
  
   
@@ -120,9 +117,27 @@ void DogruKuyrugu::removeLowestNode(){
         if(first == NULL) return;
         Node *remove = first;
         first = first->next;
-        length -= remove->data.distance;
         delete remove;
         
     }
     numberOfPoint--;
+}
+
+int DogruKuyrugu::calculateLength(){
+
+    if(numberOfPoint>1){
+        Node* temp = first;
+        for (int i = 0; i < numberOfPoint-1; i++)
+        {
+            length += sqrt(pow((temp->data.coordinate_x-temp->next->data.coordinate_x),2)+pow((temp->data.coordinate_y-temp->next->data.coordinate_y),2)+pow((temp->data.coordinate_z-temp->next->data.coordinate_z),2));
+            temp = temp->next;
+        }
+    
+        return length;
+    }
+    else{
+        return 0;
+    }
+    
+    
 }

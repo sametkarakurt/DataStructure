@@ -30,6 +30,7 @@ public:
     void removeLowestNode();
     Node* getLowestNode();
     void printNodes();
+    int calculateLength();
 
 
 

@@ -65,7 +65,7 @@ int main()
             list2->insert(lowestNode->data.coordinate_x,lowestNode->data.coordinate_y,lowestNode->data.coordinate_z);
             list->removeLowestNode();
         }
-        tree->insert(list2);
+        tree->insert(list2->calculateLength());
         
     }
 

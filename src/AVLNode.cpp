@@ -1,7 +1,7 @@
 #include "AVLNode.hpp"
 
-AVLNode::AVLNode(DogruKuyrugu* data)
+AVLNode::AVLNode(int queueLength)
 {
-    this->data = data;
+    this->queueLength = queueLength;
     left=right=0;
 }

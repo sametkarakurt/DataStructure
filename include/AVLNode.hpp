@@ -15,9 +15,9 @@ using namespace std;
 
 class AVLNode{
     public:
-		DogruKuyrugu* data;
+		int queueLength;
 		AVLNode *left, *right;
-		AVLNode(DogruKuyrugu* data);
+		AVLNode(int queueLength);
       
 		
 };
