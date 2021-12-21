@@ -9,6 +9,7 @@
 
 #include "DogruKuyrugu.hpp"
 #include <string>
+#include <math.h>
 using namespace std;
 
 
@@ -16,6 +17,7 @@ DogruKuyrugu::DogruKuyrugu()
 {
     first = last = 0;
     length = 0;
+    numberOfPoint = 0;
 }
 
 DogruKuyrugu::~DogruKuyrugu(){
@@ -29,25 +31,46 @@ DogruKuyrugu::~DogruKuyrugu(){
     }
 }
 
-bool DogruKuyrugu::isEmpty(){
-    if(first == NULL)
-        return true;
-    return false;
+Node* DogruKuyrugu::getLowestNode(){
+
+	Node* prevNode = nodeBeforeLowest();
+	
+	if(prevNode)
+		return prevNode->next;
+	if(first!=0)
+		return first;
+    throw std::out_of_range("Kuyruk Bos");
 }
+
+void DogruKuyrugu::printNodes(){
+    Node* temp = first;
+    for (int i = 0; i < numberOfPoint; i++)
+    {
+        cout<<temp->data.distance;
+        temp = temp->next;
+    }
+    cout<<endl;
+    
+
+}
+
 
 void DogruKuyrugu::insert(int x,int y,int z){
 
     if(first == NULL){
         first = new Node(Nokta(x,y,z));
         last = first;
+        length+=first->data.distance;
     }
     else{
         Node *newNode = new Node(Nokta(x,y,z));
         last->next = newNode;
         last = newNode;
+        length+=last->data.distance;
+        
     }
-
-    length++;
+ 
+    numberOfPoint++;
 
 }
 
@@ -62,7 +85,7 @@ Node* DogruKuyrugu::nodeBeforeLowest(){
     Node* prevNode = 0;
 
     int lowestValue = temp->data.distance;
-    int counter = length-1;
+    int counter = numberOfPoint-1;
     
     while (counter>0)
     {
@@ -87,17 +110,19 @@ void DogruKuyrugu::removeLowestNode(){
             last = prevNode;
         
         Node * remove = prevNode->next;
-        cout<<remove->data.coordinate_x<<" "<<remove->data.coordinate_y<<" "<<remove->data.coordinate_z<<" ";
         prevNode->next = remove->next;
+        length -= remove->data.distance;
         delete remove;
+ 
   
     }
     else{
         if(first == NULL) return;
         Node *remove = first;
-        cout<<remove->data.coordinate_x<<" "<<remove->data.coordinate_y<<" "<<remove->data.coordinate_z<<" ";
         first = first->next;
+        length -= remove->data.distance;
         delete remove;
+        
     }
-    length--;
+    numberOfPoint--;
 }

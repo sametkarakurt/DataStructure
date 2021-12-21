@@ -26,7 +26,10 @@ public:
     Node* first;
     Node* last;
     int length;
+    int numberOfPoint;
     void removeLowestNode();
+    Node* getLowestNode();
+    void printNodes();
 
 
 
