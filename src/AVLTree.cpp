@@ -1,9 +1,9 @@
 /**
-* @file			DoublyLinkedList.cpp
-* @description	İki yönlü bağıl listenin metodlarının tanımlamalarının bulunduğu yer.
+* @file			AVLTree.cpp
+* @description	AVL ağacının metodlarının tanımlamalarının bulunduğu yer.
 * @course		2-A
-* @assignment	1.Odev
-* @date			14.11.2021
+* @assignment	2.Odev
+* @date			23.12.2021
 * @author		Samet KARAKURT  samet.karakurt@ogr.sakarya.edu.tr
 */
 
@@ -17,50 +17,26 @@ AVLTree::AVLTree()
 }
 AVLTree::~AVLTree()
 {
-
+    deleteQueues(root);
+    root = 0;
 }
 
-void AVLTree::insert(int queueLength)
+void AVLTree::insert(DogruKuyrugu* queue)
 {
-    root = insert(queueLength,root);
+    root = insert(queue,root);
 }
 
-
-void AVLTree::postOrder() {
-	postOrder(root);
-}
-
-
-void AVLTree::postOrder(AVLNode* currentNode) 
-{
-	if(currentNode)
-    {
-        postOrder(currentNode->left);
-        postOrder(currentNode->right);
-        cout<<currentNode->queueLength<<" ";
-    }	
-}
-
-int AVLTree::height(AVLNode* currentNode) 
-{
-	if(currentNode)
-    {
-        return 1+max(   height(currentNode->left),
-                        height(currentNode->right));
-    }
-    return -1;
-}
-AVLNode* AVLTree::insert(int queueLength,AVLNode* currentNode) 
+AVLNode* AVLTree::insert(DogruKuyrugu* queue,AVLNode* currentNode) 
 {
     if(currentNode==0)
-        return new AVLNode(queueLength);
+        return new AVLNode(queue);
 
-	else if(currentNode->queueLength<queueLength)
+	else if(currentNode->queue->length<queue->length)
     {
-        currentNode->right=insert(queueLength,currentNode->right);
+        currentNode->right=insert(queue,currentNode->right);
         if(height(currentNode->right)-height(currentNode->left)>1)
         {   
-            if(queueLength>currentNode->right->queueLength)
+            if(queue->length>currentNode->right->queue->length)
                 currentNode = swapLeft(currentNode);
                 
             else
@@ -70,13 +46,13 @@ AVLNode* AVLTree::insert(int queueLength,AVLNode* currentNode)
             }
         }
     }
-    else if(currentNode->queueLength>=queueLength)
+    else if(currentNode->queue->length>=queue->length)
     {
-        currentNode->left = insert(queueLength,currentNode->left);
+        currentNode->left = insert(queue,currentNode->left);
         if(height(currentNode->left)-height(currentNode->right)>1)
         {
 
-            if(queueLength<currentNode->left->queueLength)
+            if(queue->length<currentNode->left->queue->length)
                 currentNode = swapRight(currentNode);
             else
             {
@@ -87,9 +63,9 @@ AVLNode* AVLTree::insert(int queueLength,AVLNode* currentNode)
 
     }
     return currentNode;
-
   
 }
+
 AVLNode* AVLTree::swapLeft(AVLNode*parent) 
 {
 	AVLNode* rightChild = parent->right;
@@ -103,4 +79,37 @@ AVLNode* AVLTree::swapRight(AVLNode* parent)
     parent->left = leftChild->right;
     leftChild->right = parent;
     return leftChild;
+}
+
+void AVLTree::postOrder() {
+	postOrder(root);
+}
+
+void AVLTree::postOrder(AVLNode* currentNode) 
+{
+	if(currentNode)
+    {
+        postOrder(currentNode->left);
+        postOrder(currentNode->right);
+        currentNode->queue->printNodes();
+    }	
+}
+
+int AVLTree::height(AVLNode* currentNode) 
+{
+	if(currentNode)
+    {
+        return 1+max(   height(currentNode->left),
+                        height(currentNode->right));
+    }
+    return -1;
+}
+
+void AVLTree::deleteQueues(AVLNode* currentNode){
+    if(currentNode!=0)
+    {
+        deleteQueues(currentNode->left);
+        deleteQueues(currentNode->right);
+        delete currentNode;
+    }
 }

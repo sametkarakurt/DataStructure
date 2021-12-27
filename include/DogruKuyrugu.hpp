@@ -1,9 +1,9 @@
 /**
-* @file			Node.hpp
-* @description	Node Class'ı burada bulunur
+* @file			DogruKuyrugu.hpp
+* @description	DogruKuyrugu Class'ı burada bulunur
 * @course		2-A
-* @assignment	1.Odev
-* @date			14.11.2021
+* @assignment	2.Odev
+* @date			23.12.2021
 * @author		Samet KARAKURT  samet.karakurt@ogr.sakarya.edu.tr
 */
 
@@ -20,8 +20,6 @@ public:
     DogruKuyrugu();
     ~DogruKuyrugu();
     void insert(int x,int y,int z);
-    bool isEmpty();
-    void print();
     Node* nodeBeforeLowest();
     Node* first;
     Node* last;
@@ -32,10 +30,6 @@ public:
     void printNodes();
     int calculateLength();
 
-
-
-
 };
-
 
 #endif

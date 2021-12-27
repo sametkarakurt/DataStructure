@@ -1,9 +1,9 @@
 /**
-* @file			DoublyLinkedList.cpp
-* @description	İki yönlü bağıl listenin metodlarının tanımlamalarının bulunduğu yer.
+* @file			DogruKuyrugu.cpp
+* @description	Dogru Kuyruğunun metodlarının tanımlamalarının bulunduğu yer.
 * @course		2-A
-* @assignment	1.Odev
-* @date			14.11.2021
+* @assignment	2.Odev
+* @date			23.12.2021
 * @author		Samet KARAKURT  samet.karakurt@ogr.sakarya.edu.tr
 */
 
@@ -16,18 +16,16 @@ using namespace std;
 DogruKuyrugu::DogruKuyrugu()
 {
     first = last = 0;
-    length = 0;
     numberOfPoint = 0;
+    length =0;
 }
 
 DogruKuyrugu::~DogruKuyrugu(){
-
-
-    while(first != NULL){
+    for (int i = 0; i < numberOfPoint; i++)
+    {
         Node* temp = first;
         first = first->next ;
         delete temp;
-        
     }
 }
 
@@ -46,7 +44,7 @@ void DogruKuyrugu::printNodes(){
     Node* temp = first;
     for (int i = 0; i < numberOfPoint; i++)
     {
-        cout<<temp->data.distance;
+        cout<<temp->data.distance<<" ";
         temp = temp->next;
     }
     cout<<endl;
@@ -124,15 +122,15 @@ void DogruKuyrugu::removeLowestNode(){
 }
 
 int DogruKuyrugu::calculateLength(){
-
+    int length = 0;
     if(numberOfPoint>1){
         Node* temp = first;
         for (int i = 0; i < numberOfPoint-1; i++)
         {
             length += sqrt(pow((temp->data.coordinate_x-temp->next->data.coordinate_x),2)+pow((temp->data.coordinate_y-temp->next->data.coordinate_y),2)+pow((temp->data.coordinate_z-temp->next->data.coordinate_z),2));
             temp = temp->next;
+            
         }
-    
         return length;
     }
     else{

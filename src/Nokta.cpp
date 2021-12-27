@@ -1,9 +1,9 @@
 /**
-* @file			Node.cpp
-* @description	Düğümün tanımlamalarının bulunduğu yer.
+* @file			Nokta.cpp
+* @description	Noktanın tanımlamalarının bulunduğu yer.
 * @course		2-A
-* @assignment	1.Odev
-* @date			14.11.2021
+* @assignment	2.Odev
+* @date			23.12.2021
 * @author		Samet KARAKURT  samet.karakurt@ogr.sakarya.edu.tr
 */
 

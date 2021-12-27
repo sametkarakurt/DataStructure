@@ -1,9 +1,9 @@
 /**
-* @file			Node.hpp
-* @description	Node Class'ı burada bulunur
+* @file			AVLTree.hpp
+* @description	AVLTree Class'ı burada bulunur
 * @course		2-A
-* @assignment	1.Odev
-* @date			14.11.2021
+* @assignment	2.Odev
+* @date			23.12.2021
 * @author		Samet KARAKURT  samet.karakurt@ogr.sakarya.edu.tr
 */
 
@@ -18,20 +18,16 @@ class AVLTree
 public:
     AVLTree();
     ~AVLTree();
-    void insert(int queueLength);
+    void insert(DogruKuyrugu* queue);
     void postOrder();
-    AVLNode *root;
-    int size;
-
 private:
-
-    AVLNode* insert(int queueLength,AVLNode* aktifDugum);
+    AVLNode *root;
+    AVLNode* insert(DogruKuyrugu* queue,AVLNode* aktifDugum);
 	AVLNode* swapLeft(AVLNode* dugum);
 	AVLNode* swapRight(AVLNode* dugum);
     int height(AVLNode* currentNode);
     void postOrder(AVLNode* currentNode);
-
+    void deleteQueues(AVLNode* currentNode);
 };
-
 
 #endif

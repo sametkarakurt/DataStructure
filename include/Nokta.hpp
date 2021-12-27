@@ -1,12 +1,11 @@
 /**
-* @file			Node.hpp
-* @description	Node Class'ı burada bulunur
+* @file			Nokta.hpp
+* @description	Nokta Class'ı burada bulunur
 * @course		2-A
-* @assignment	1.Odev
-* @date			14.11.2021
+* @assignment	2.Odev
+* @date			23.12.2021
 * @author		Samet KARAKURT  samet.karakurt@ogr.sakarya.edu.tr
 */
-
 #ifndef NOKTA_HPP_
 #define NOKTA_HPP_
 #include <iostream>

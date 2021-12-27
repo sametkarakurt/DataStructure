@@ -2,74 +2,59 @@
 * @file			main.cpp
 * @description	Programı başlatan yer..
 * @course		2-A
-* @assignment	1.Odev
-* @date			14.11.2021
+* @assignment	2.Odev
+* @date			23.12.2021
 * @author		Samet KARAKURT  samet.karakurt@ogr.sakarya.edu.tr
 */
-
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <string>
 #include "DogruKuyrugu.hpp"
 #include "AVLTree.hpp"
 using namespace std;
 
-
 int main()
 {
-     AVLTree* tree = new AVLTree();
-    // DogruKuyrugu* list = new DogruKuyrugu();
+    AVLTree* tree = new AVLTree();
 
     ifstream file;
-
-    file.open("Commands.txt");
+    file.open("Noktalar.txt");
     string row;
+
     while(getline(file,row))
 	{
-        DogruKuyrugu* list = new DogruKuyrugu();
-        DogruKuyrugu* list2 = new DogruKuyrugu();
+        DogruKuyrugu* queue = new DogruKuyrugu();
+        DogruKuyrugu* sortedQueue = new DogruKuyrugu();
 
+        stringstream s(row);
+        string word;
+  
+        int counter = 0;
         int values[3];
 
-        int value;
-        int valueIndex;
-        int counter = 0;
-
-        do
-        {
-
-            valueIndex = row.find(" ");
-            if (valueIndex == -1)
-            {
-                value = stoi(row.substr(0,1));
-                row.erase(0,1);
-       
-            }else{
-                value = stoi(row.substr(0,valueIndex));
-                row.erase(0,valueIndex+1);
-            }
-            values[counter] = value;
+        while (s >> word){
+            values[counter] = stoi(word);
             counter++;
 
             if(counter%3 == 0){
                 counter = 0;
-                list->insert(values[0],values[1],values[2]);
-            }
-            
-            
-        
-        }while (valueIndex != -1);
-    
-        while(list->numberOfPoint>0){
-            Node* lowestNode = list->getLowestNode();
-            list2->insert(lowestNode->data.coordinate_x,lowestNode->data.coordinate_y,lowestNode->data.coordinate_z);
-            list->removeLowestNode();
+                queue->insert(values[0],values[1],values[2]);
+             }
         }
-        tree->insert(list2->calculateLength());
-        
-    }
 
+        sortedQueue->length = queue->calculateLength();
+        while(queue->numberOfPoint>0){
+            Node* lowestNode = queue->getLowestNode();
+            sortedQueue->insert(lowestNode->data.coordinate_x,lowestNode->data.coordinate_y,lowestNode->data.coordinate_z);
+            queue->removeLowestNode();
+        }
+            
+        tree->insert(sortedQueue);
+    }
     tree->postOrder();
+
+    delete tree;
 }
 
 
